@@ -34,13 +34,13 @@ android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 fullscreen = 0
 
 # (str) Android API target
-android.api = 35
+android.api = 33
 
 # (str) Minimum Android API
-android.minapi = 23
+android.minapi = 21
 
 # (str) Android NDK version
-android.ndk = 27c
+android.ndk = 25b
 
 # (str) Android architecture
 android.archs = arm64-v8a, armeabi-v7a
