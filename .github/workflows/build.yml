@@ -1,27 +1,25 @@
-name: Build APK
+name: Gerar APK
 
 on:
-  push:
-    branches: [ "main", "master" ]
   workflow_dispatch:
+  push:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Baixar projeto
+        uses: actions/checkout@v4
 
-    - name: Build with Buildozer
-      uses: ArtemSydoryk/buildozer-action@v1
-      with:
-        command: buildozer android debug
-        subpath: .
+      - name: Compilar APK
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          workdir: .
 
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-release
-        path: bin/*.apk
-        
+      - name: Salvar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: CE-FIFA-APK
+          path: ${{ steps.buildozer.outputs.filename }}
