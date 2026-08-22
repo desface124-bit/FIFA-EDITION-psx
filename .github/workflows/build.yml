@@ -22,25 +22,21 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libffi-dev libssl-dev
-          pip install --upgrade pip setuptools buildozer cython
+          pip install --upgrade pip setuptools "buildozer>=1.5.0" cython
+
+      - name: Accept All Android Licenses
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+
+      - name: Link GitHub Android SDK to Buildozer
+        run: |
+          mkdir -p ~/.buildozer/android/platform
+          ln -s $ANDROID_HOME ~/.buildozer/android/platform/android-sdk
 
       - name: Build with Buildozer
         run: |
-          # Executa o buildozer para inicializar as pastas do Android SDK
-          buildozer android debug || true
-          
-          # Aceita as licenças diretamente dentro do diretório do Buildozer
-          SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
-          if [ -d "$SDK_DIR/cmdline-tools/latest/bin" ]; then
-            yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          elif [ -d "$SDK_DIR/tools/bin" ]; then
-            yes | $SDK_DIR/tools/bin/sdkmanager --licenses || true
-          fi
-          
-          # Aceita licenças no SDK padrão por garantia
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-          # Compila o APK pra valer
           buildozer -v android debug
 
       - name: Upload APK Artifact
