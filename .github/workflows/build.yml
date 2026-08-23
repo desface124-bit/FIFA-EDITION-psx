@@ -25,9 +25,8 @@ jobs:
           pip install --upgrade pip setuptools
           pip install "cython<3.0.0" buildozer
 
-      - name: Setup Android SDK, P4A & Licenses
+      - name: Setup Android SDK & Licenses
         run: |
-          # Setup SDK
           SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
           mkdir -p $SDK_DIR/cmdline-tools
           
@@ -41,10 +40,6 @@ jobs:
           ln -s $SDK_DIR/cmdline-tools/latest/bin $SDK_DIR/tools/bin
 
           yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-          # Garante o clone do python-for-android no diretório esperado pelo Buildozer
-          mkdir -p $GITHUB_WORKSPACE/.buildozer/android/platform
-          git clone https://github.com/kivy/python-for-android.git $GITHUB_WORKSPACE/.buildozer/android/platform/python-for-android
 
       - name: Build with Buildozer
         run: |
