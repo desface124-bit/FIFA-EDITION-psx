@@ -15,20 +15,14 @@ source.dir = .
 # (list) Source files to include
 source.include_exts = py,png,jpg,jpeg,kv,atlas,json
 
-# (list) Application requirements
-requirements = python3,kivy,plyer
-
-# (str) Presplash of the application
-presplash.filename = %(source.dir)s/presplash.png
-
-# (str) Icon of the application
-icon.filename = %(source.dir)s/icon.png
+# (list) Application requirements (Ajustado para incluir o pyjnius necessário para o Plyer no Android)
+requirements = python3,kivy==2.3.0,plyer,pyjnius
 
 # (str) Supported orientation
 orientation = portrait
 
 # (list) Android permissions
-android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE
 
 # (bool) Indicate if the app should be fullscreen
 fullscreen = 0
@@ -55,9 +49,7 @@ android.private_storage = True
 version = 1.0.0
 
 # (str) Name of the main Python file
-# Keep the Python file in the same folder as this buildozer.spec
 source.main = main.py
-
 
 [buildozer]
 
@@ -66,7 +58,6 @@ log_level = 2
 
 # (bool) Warn when buildozer.spec changes
 warn_on_root = 1
-
 
 [android]
 
@@ -79,12 +70,6 @@ android.orientation = portrait
 # (bool) Use AndroidX
 android.enable_androidx = True
 
-# (str) Android app theme
-android.add_src =
-
-# (list) Gradle dependencies
-android.gradle_dependencies =
-
 # (str) Extra arguments for python-for-android
 p4a.branch = main
 
@@ -94,7 +79,4 @@ p4a.extra_args =
 # (bool) Enable logcat on build
 android.logcat_filters = *:S python:D
 
-
 [toolchain]
-
-# (str) Python-for-Android toolchain
