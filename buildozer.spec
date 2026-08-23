@@ -86,7 +86,7 @@ android.add_src =
 android.gradle_dependencies =
 
 # (str) Extra arguments for python-for-android
-p4a.branch = master
+p4a.branch = main
 
 # (str) Extra python-for-android arguments
 p4a.extra_args = --allow-prerequisites-install
