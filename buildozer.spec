@@ -89,7 +89,7 @@ android.gradle_dependencies =
 p4a.branch = main
 
 # (str) Extra python-for-android arguments
-p4a.extra_args = --allow-prerequisites-install
+p4a.extra_args =
 
 # (bool) Enable logcat on build
 android.logcat_filters = *:S python:D
