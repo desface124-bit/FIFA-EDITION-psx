@@ -15,7 +15,7 @@ source.dir = .
 # (list) Source files to include
 source.include_exts = py,png,jpg,jpeg,kv,atlas,json
 
-# (list) Application requirements (Ajustado para incluir o pyjnius necessário para o Plyer no Android)
+# (list) Application requirements
 requirements = python3,kivy==2.3.0,plyer,pyjnius
 
 # (str) Supported orientation
@@ -45,6 +45,9 @@ android.entrypoint = org.kivy.android.PythonActivity
 # (bool) Copy the application data to external storage
 android.private_storage = True
 
+# (bool) Skip Android SDK/NDK updates (Impede o erro do sdkmanager)
+android.skip_update = True
+
 # (str) Version
 version = 1.0.0
 
@@ -72,9 +75,6 @@ android.enable_androidx = True
 
 # (str) Extra arguments for python-for-android
 p4a.branch = main
-
-# (str) Extra python-for-android arguments
-p4a.extra_args =
 
 # (bool) Enable logcat on build
 android.logcat_filters = *:S python:D
