@@ -30,6 +30,12 @@ jobs:
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools"
 
+      - name: Link System SDK to Buildozer Path
+        run: |
+          BUILDOZER_SDK_DIR="$HOME/.buildozer/android/platform"
+          mkdir -p $BUILDOZER_SDK_DIR
+          ln -s $ANDROID_HOME $BUILDOZER_SDK_DIR/android-sdk
+
       - name: Build with Buildozer
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
