@@ -56,7 +56,7 @@ version = 1.0.0
 
 # (str) Name of the main Python file
 # Keep the Python file in the same folder as this buildozer.spec
-source.main = fifa2001_player_editor_android.py
+source.main = main.py
 
 
 [buildozer]
