@@ -22,26 +22,24 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libffi-dev libssl-dev
-          pip install --upgrade pip setuptools buildozer cython
+          pip install --upgrade pip setuptools
+          # Força o Cython 0.29.33 para evitar falha no p4a
+          pip install "cython<3.0.0" buildozer
 
       - name: Setup Android SDK, Symlinks & Licenses
         run: |
-          # 1. Cria diretórios do SDK
           SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
           mkdir -p $SDK_DIR/cmdline-tools
           
-          # 2. Baixa e instala o Command-line Tools atualizado
           cd $SDK_DIR/cmdline-tools
           curl -s https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -o cmdline-tools.zip
           unzip -q cmdline-tools.zip
           mv cmdline-tools latest
           rm cmdline-tools.zip
           
-          # 3. Cria a pasta 'tools/bin' legada apontando para a pasta nova
           mkdir -p $SDK_DIR/tools
           ln -s $SDK_DIR/cmdline-tools/latest/bin $SDK_DIR/tools/bin
 
-          # 4. Aceita todas as licenças
           yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Build with Buildozer
