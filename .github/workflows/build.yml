@@ -25,18 +25,14 @@ jobs:
           pip install --upgrade pip setuptools
           pip install "cython<3.0.0" buildozer
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Accept Licenses & Install Platform Tools
+      - name: Accept Licenses & Install Build Tools
         run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools"
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools"
 
       - name: Build with Buildozer
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
-          ANDROIDSDK: ${{ env.ANDROID_HOME }}
         run: |
           buildozer -v android debug
 
